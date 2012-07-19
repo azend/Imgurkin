@@ -7,27 +7,78 @@
 	<body>
 		<header>
 			<hgroup>
-				<h1>Main Heading</h1>
+				<h1></h1>
 			</hgroup>
+		</header>
+		<section>
+			<img id="image" src="" />
+		</section>
+		<footer>
 			<nav>
 				<ul>
 					<li><button id="prev">Prev</button></li>
 					<li><button id="next">Next</button></li>
+					<li><button id="rebuild">Rebuild</button></li>
 				</ul>
 			</nav>
-		</header>
-		<section>Content, which might include headings, paragraphs, article elements each with a header and footer if desired and other material such as figure and figcaption or form elements.</section>
-		<section>other sections if needed</section>
-		<aside>secondary content</aside>
-		<footer>footer content</footer>
+		</footer>
 	</body>
 
-	<script src=zepto.min.js></script>
+	<script src="zepto.min.js"></script>
 	<script type="text/javascript">
 		$(function () {
-			var gallery = $.getJSON("http://imgur.com/gallery.json", function(data) {
-				console.log(data);
-			});
+			var gallery;
+			var currentIndex;
+
+			function next () {
+				console.log('Next');
+				
+				if (currentIndex !== gallery.length -1) {
+					currentIndex ++;
+				}
+				else {
+					currentIndex = 0;
+				}
+				loadImage();
+			}
+
+			function prev () {
+				console.log('Prev');
+
+				if (currentIndex !== 0) {
+					currentIndex --;
+				}
+				else {
+					currentIndex = gallery.length - 1;
+				}
+				loadImage();
+			}
+
+
+			function loadImage() {
+				image = gallery[currentIndex];
+
+				$('h1').text(image.title);
+				
+				
+				$('#image').attr('src', 'https://imgur.com/' + image.hash + image.ext);
+			}
+
+			function rebuild () {
+				currentIndex = 0;
+
+				$.getJSON('fetchgallery.php', function(data) {
+					gallery = data.gallery;
+
+					loadImage();
+				});
+			}
+
+			$('#prev').on('click', prev);
+			$('#next').on('click', next);
+			$('#rebuild').on('click', rebuild);
+
+			rebuild();
 		});
 	</script>
 </html>
