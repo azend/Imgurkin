@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<header>
+			<hgroup>
+				<h1>Main Heading</h1>
+			</hgroup>
+			<nav>
+				<ul>
+					<li><button id="prev">Prev</button></li>
+					<li><button id="next">Next</button></li>
+				</ul>
+			</nav>
+		</header>
+		<section>Content, which might include headings, paragraphs, article elements each with a header and footer if desired and other material such as figure and figcaption or form elements.</section>
+		<section>other sections if needed</section>
+		<aside>secondary content</aside>
+		<footer>footer content</footer>
+	</body>
+
+	<script src=zepto.min.js></script>
+	<script type="text/javascript">
+		$(function () {
+			var gallery = $.getJSON("http://imgur.com/gallery.json", function(data) {
+				console.log(data);
+			});
+		});
+	</script>
+</html>
