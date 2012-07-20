@@ -1,3 +1,18 @@
+.nav {
+	display: inline;
+}
+
+#prev {
+	text-align: left;
+}
+
+#next {
+	text-align: right;
+}
+
+#rebuild {
+	text-align: center;
+}
 
 #image { 
 	width: 100%;
