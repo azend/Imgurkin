@@ -1,0 +1,29 @@
+.header, .footer {
+	display: block;
+}
+
+.headerItem {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+.nav {
+	display: inline;
+}
+
+#prev {
+	text-align: left;
+}
+
+#next {
+	text-align: right;
+}
+
+#rebuild {
+	text-align: center;
+}
+
+#image { 
+	max-width: 100%;
+	max-height: 100%;
+}
