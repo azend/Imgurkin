@@ -31,6 +31,7 @@ if ($action == "next") {
 	else {
 		$_SESSION['gallery_pointer'] ++;
 	}
+	header('Location: ' . strtok( $_SERVER['REQUEST_URI'], '?' ) , TRUE, 307);
 }
 else if ($action == "prev") {
 	$status = $status . "Prev.";
@@ -40,49 +41,55 @@ else if ($action == "prev") {
 	else {
 		$_SESSION['gallery_pointer'] --;
 	}
+	header('Location: ' . strtok( $_SERVER['REQUEST_URI'], '?' ) , TRUE, 307);
 }
 else if ($action == "rebuild") {
 	$status = $status . "Rebuild.";
 	rebuild_cache();
 }
+else {
 
-// Set up easy variables for rendering
-$image = $_SESSION['gallery'][$_SESSION['gallery_pointer']];
-$title = $image['title'];
-$image_url  = "http://imgur.com/" . $image['hash'] . $image['ext'];
+	// Set up easy variables for rendering
+	$image = $_SESSION['gallery'][$_SESSION['gallery_pointer']];
+	$title = $image['title'];
+	$image_url  = "http://imgur.com/" . $image['hash'] . $image['ext'];
 
-?>
+	?>
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="style.css">
-	</head>
-	<body>
-		<h1 id="title"><?php echo $title; ?></h1>
-		<a id="prev" class="nav" href="?action=prev">Prev</a>
-		<a id="next" class="nav" href="?action=next">Next</a>
-		<img id="image" src="<?php echo $image_url; ?>" >
-		<a id="rebuild" class="nav" href="?action=rebuild">Rebuild Cache</a>
-	</body>
-	<script type="text/javascript">
-		(function() {
-			function handleKeypress (e) {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="utf-8">
+			<link rel="stylesheet" href="style.css">
+		</head>
+		<body>
+			<h1 id="title"><?php echo $title; ?></h1>
+			<a id="prev" class="nav" href="?action=prev">Prev</a>
+			<a id="next" class="nav" href="?action=next">Next</a>
+			<img id="image" src="<?php echo $image_url; ?>" >
+			<a id="rebuild" class="nav" href="?action=rebuild">Rebuild Cache</a>
+		</body>
+		<script type="text/javascript">
+			(function() {
+				function handleKeypress (e) {
 
-				// Next
-				if (e.keyCode === 110) {
-					console.log('next');
-					window.location.href = document.getElementById('next').href;
+					// Next
+					if (e.keyCode === 110) {
+						console.log('next');
+						window.location.href = document.getElementById('next').href;
+					}
+					// Prev
+					else if (e.keyCode === 112) {
+						window.location.href = document.getElementById('prev').href;
+					}
 				}
-				// Prev
-				else if (e.keyCode === 112) {
-					window.location.href = document.getElementById('prev').href;
-				}
-			}
 
-			document.onkeypress = handleKeypress;
-			document.getElementById('next').focus();
-		})();
-	</script>
-</html>
+				document.onkeypress = handleKeypress;
+				document.getElementById('next').focus();
+			})();
+		</script>
+	</html>
+
+	<?php
+
+}
