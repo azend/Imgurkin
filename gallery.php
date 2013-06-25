@@ -40,7 +40,6 @@ else if ($action == "prev") {
 	else {
 		$_SESSION['gallery_pointer'] --;
 	}
-	$_SESSION['gallery_pointer'] --;
 }
 else if ($action == "rebuild") {
 	$status = $status . "Rebuild.";
